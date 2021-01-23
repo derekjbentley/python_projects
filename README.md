@@ -1,2 +1,2 @@
-# DC_weather
-A script to get the current weather for Washington, DC
+# python_projects
+A collection of Python projects I complete as I learn.
