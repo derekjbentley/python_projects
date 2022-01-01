@@ -156,7 +156,7 @@ hourly_df = hourly_df.drop(['rain_x', 'rain_y'], axis=1)
 # %%
 ## Write data to Google Sheets
 print('Writing to Sheets...')
-service = pygsheets.authorize(client_secret='client_secret.json')
+service = pygsheets.authorize()
 workbook = service.open('seven_day_forecast')
 sheet1 = workbook[0]
 sheet1.set_dataframe(merge_df, (1,1), fit=False)
