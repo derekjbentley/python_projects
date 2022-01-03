@@ -1,0 +1,12 @@
+# Virutal Environment Variables #
+.env
+.vscode
+
+# Data Files #
+*.csv
+*.txt
+*.xlsx
+*.json
+
+# Scripts #
+*.ipynb
