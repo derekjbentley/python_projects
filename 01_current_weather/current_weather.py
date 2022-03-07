@@ -1,5 +1,5 @@
 # ! python
-# current_weather.py - Prints the current weather for the user's IP address
+# current_weather.py
 '''
 current_weather.py retrieves the current weather conditions at the location of
 the user's IP address. The data is retrived with the Open Weather Map API.
@@ -17,7 +17,7 @@ load_dotenv()
 APPID = os.environ.get('openweather_key')
 
 
-# Retrieve User's Coordinates
+# Define function to get location
 def user_location():
     '''
     Return the user's latitude and longitude coordinates based on their
@@ -30,6 +30,20 @@ def user_location():
     state = g.state
     return lat, lon, city, state
 
+
+# Define function to print current weather conditions.
+def output_weather():
+    '''Prints the current weather conditions for the user's location.'''
+    if state == 'Washington, D.C.':
+        print(f'The current weather for {state}:')
+    else:
+        print(f'The current weather for {city}, {state}:')
+
+    print('Temperature: ' + str(current['temp']))
+    print('Feels like: ' + str(current['feels_like']))
+    print('Cloud Cover: ' + current['weather'][0]['description'].title())
+
+# Retrieve User's Coordinates
 lat, lon, city, state = user_location()
 
 # API Call
@@ -46,17 +60,5 @@ response.raise_for_status()
 weatherData = json.loads(response.text)
 current = weatherData['current']
 
-
 # Print current weather
-def output_weather():
-    '''Prints the current weather conditions for the user's location.'''
-    if state == 'Washington, D.C.':
-        print(f'The current weather for {state}:')
-    else:
-        print(f'The current weather for {city}, {state}:')
-
-    print('Temperature: ' + str(current['temp']))
-    print('Feels like: ' + str(current['feels_like']))
-    print('Cloud Cover: ' + current['weather'][0]['description'].title())
-
-output_weather()
+print(output_weather())
