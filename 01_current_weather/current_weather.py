@@ -1,24 +1,28 @@
 # ! python
 # current_weather.py - Prints the current weather for the user's IP address
 '''
-current_weather.py retrieves the current weather conditions at the location of 
+current_weather.py retrieves the current weather conditions at the location of
 the user's IP address. The data is retrived with the Open Weather Map API.
 '''
 
-## Import modules
+# Import modules
 import json
 import requests
 import os
 import geocoder
 from dotenv import load_dotenv
 
-## Retrieve credentials and set environment variables
+# Retrieve credentials and set environment variables
 load_dotenv()
 APPID = os.environ.get('openweather_key')
 
-## Retrieve User's Coordinates
+
+# Retrieve User's Coordinates
 def user_location():
-    '''Return the user's latitude and longitude coordinates based on their IP address.'''
+    '''
+    Return the user's latitude and longitude coordinates based on their
+    IP address.
+    '''
     g = geocoder.ip('me')
     coordinates = list(g.latlng)
     lat, lon = coordinates
@@ -28,20 +32,22 @@ def user_location():
 
 lat, lon, city, state = user_location()
 
-## API Call
+# API Call
 url = f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid={APPID}&units=imperial"
 
-## Returns a response object
+# Returns a response object
 response = requests.get(url)
 
-## Check for errors. If no exceptions are raised, the downloaded text is stored in response.text
+# Check for errors.
+# If no exceptions are raised, the downloaded text is stored in response.text
 response.raise_for_status()
 
-## Load JSON data into a Python object
+# Load JSON data into a Python object
 weatherData = json.loads(response.text)
 current = weatherData['current']
 
-## Print current weather
+
+# Print current weather
 def output_weather():
     '''Prints the current weather conditions for the user's location.'''
     if state == 'Washington, D.C.':
